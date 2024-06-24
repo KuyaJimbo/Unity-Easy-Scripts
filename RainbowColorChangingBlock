@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RainbowColorChangingBlock : MonoBehaviour
+{
+    // Public variables to adjust the color change speed
+    public float colorChangeSpeed = 1.0f;
+
+    // Private variables to store the Renderer and hue value
+    private Renderer blockRenderer;
+    private float hue = 0f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Get the Renderer component attached to the block
+        blockRenderer = GetComponent<Renderer>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Increment the hue value based on the colorChangeSpeed
+        hue += colorChangeSpeed * Time.deltaTime;
+        if (hue > 1f) hue = 0f; // Loop the hue value back to 0 when it exceeds 1
+
+        // Convert the hue to a color and assign it to the block's material
+        blockRenderer.material.color = Color.HSVToRGB(hue, 1f, 1f);
+    }
+}
