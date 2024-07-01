@@ -11,20 +11,23 @@ public class PlayerJump : MonoBehaviour
 
     // Set up variables
     private Rigidbody rb;
-    public float speed = 10;
+    public float speed = 10f;
 
     // Set up variables for jumping
     private bool isGrounded;
     private bool canDoubleJump;
 
+    // Jump sound
+    public AudioSource jumpSound;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        jumpSound = GetComponent<AudioSource>();
     }
 
-    // allow player to double jump
+    // Allow player to double jump
     void Update()
     {
         // If the player presses the space bar, call the DoubleJump function
@@ -59,6 +62,12 @@ public class PlayerJump : MonoBehaviour
             rb.AddForce(Vector3.up * speed, ForceMode.Impulse);
             isGrounded = false;
             canDoubleJump = true;
+
+            // Play jump sound
+            if (jumpSound != null)
+            {
+                jumpSound.Play();
+            }
         }
         else
         {
@@ -66,6 +75,12 @@ public class PlayerJump : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * speed, ForceMode.Impulse);
                 canDoubleJump = false;
+
+                // Play jump sound
+                if (jumpSound != null)
+                {
+                    jumpSound.Play();
+                }
             }
         }
     }
@@ -76,7 +91,12 @@ public class PlayerJump : MonoBehaviour
         {
             rb.AddForce(Vector3.up * speed, ForceMode.Impulse);
             isGrounded = false;
+
+            // Play jump sound
+            if (jumpSound != null)
+            {
+                jumpSound.Play();
+            }
         }
     }
-
 }
